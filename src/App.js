@@ -3,11 +3,8 @@ import {
   ChakraProvider,
   theme,
   Grid,
-  SimpleGrid,
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import Expense from './components/expense'
-import TotalCost from './components/totalCost'
 import Header from './components/header'
 import SideBar from './components/sideBar';
 import Main from './components/main'
@@ -22,8 +19,8 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
           <Header />
-          <SimpleGrid
-          columns={2}
+          <Grid
+          templateColumns="1fr 3fr"
           >
             <SideBar
             data={capitalExpenseList}
@@ -31,9 +28,12 @@ function App() {
             focusedExpense={focusedExpense}
             />
             
-            <Main />
+            <Main
+            focusedExpense={focusedExpense}
+            data={capitalExpenseList}
+            />
             
-          </SimpleGrid>
+          </Grid>
     </ChakraProvider>
   );
 }

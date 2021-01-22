@@ -4,10 +4,9 @@ import { Box, Text } from '@chakra-ui/react'
 const SideBar = ({ data, focusedExpense, setFocusedExpense }) => {
     return (
         <Box
-        w="18rem"
+        w="100%"
         h="100vh"
         borderRight="1px solid gray"
-        position="fixed"
         overflow="scroll"
         >
             {data.map(i => (
