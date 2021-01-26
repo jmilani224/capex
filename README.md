@@ -1,3 +1,7 @@
+Blog post with background info: https://www.biggerpockets.com/blog/estimating-capex-real-estate
+
+https://hotwatersolutionsnw.org/news/how-old-is-my-water-heater
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

@@ -11,6 +11,7 @@ const SideBar = ({ data, focusedExpense, setFocusedExpense }) => {
         >
             {data.map(i => (
                 <SideBarItem
+                key={i.name}
                 data={i}
                 setFocusedExpense={setFocusedExpense}
                 focusedExpense={focusedExpense}

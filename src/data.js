@@ -3,6 +3,28 @@ export const capitalExpenseList = [
         name: "Roof",
         replacementCost: 5000,
         lifespan: 25,
+        showReplacementOptions: true,
+        unit: "sq. ft.",
+        replacementOptions: [
+            { 
+                name: "Asphalt",
+                units: 1000,
+                unitCost: 10,
+                note: "There are typically about 30 sq. ft. of asphalt tiles per box. To determine the number of boxes you need, divide the square feet by 30 and round up."
+            },
+            { 
+                name: "Slate",
+                units: 1000,
+                unitCost: 25,
+                note: "Slate is pricer but looks great on older homes."
+            },
+            { 
+                name: "Terra Cotta",
+                units: 1000,
+                unitCost: 35,
+                note: "Get this tile and pretend you live in Italy."
+            }
+        ]
     },
     {
         name: "Water Heater",

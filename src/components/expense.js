@@ -9,6 +9,7 @@ import {
     StatLabel,
     StatNumber
 } from '@chakra-ui/react'
+import ReplacementOptionsDrawer from './replacementOptions'
 
 const Expense = ({ data }) => {
     const [replacementCost, setReplacementCost] = useState(data.replacementCost)
@@ -16,7 +17,7 @@ const Expense = ({ data }) => {
     const [age, setAge] = useState(0)
     const [monthlyCAPEX, setMonthlyCAPEX] = useState(0)
     const [annualCAPEX, setAnnualCAPEX] = useState(0)
-
+    
     const handleMonthlyCAPEX = () => {
         const monthsLeft = (lifespan - age) * 12;
         return Math.ceil(replacementCost / monthsLeft)
@@ -32,8 +33,6 @@ const Expense = ({ data }) => {
         setMonthlyCAPEX(handleMonthlyCAPEX)
         setAnnualCAPEX(handleAnnualCAPEX)
     }, [data, replacementCost, lifespan, age])
-
-    console.log(replacementCost, lifespan)
     
     return (
         <Box
@@ -51,24 +50,29 @@ const Expense = ({ data }) => {
                 <Input
                 w="20rem"
                 mb={8}
-                defaultValue={data.replacementCost}
-                onChange={e => setReplacementCost(parseInt(e.target.value, 10))}
+                type="number"
+                value={replacementCost}
+                onChange={e => setReplacementCost(e.target.value)}
                 />
+
+                {data.showReplacementOptions && <ReplacementOptionsDrawer data={data} setReplacementCost={setReplacementCost} />}
 
                 <FormLabel htmlFor="lifespan">Lifespan (years)</FormLabel>
                 <Input
                 w="20rem"
                 mb={8}
-                defaultValue={data.lifespan}
-                onChange={e => setLifespan(parseInt(e.target.value, 10))}
+                type="number"
+                value={lifespan}
+                onChange={e => setLifespan(e.target.value, 10)}
                 />
 
                 <FormLabel htmlFor="age">Age (years)</FormLabel>
                 <Input
                 w="20rem"
                 mb={8}
-                defaultValue={0}
-                onChange={e => setAge(parseInt(e.target.value, 10))}
+                type="number"
+                value={age}
+                onChange={e => setAge(e.target.value, 10)}
                 />
                 
             </form>

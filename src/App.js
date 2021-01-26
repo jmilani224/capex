@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   ChakraProvider,
   theme,
@@ -13,8 +13,15 @@ import { capitalExpenseList } from './data'
 
 
 function App() {
+  useEffect(() => {
+    localStorage.setItem('setData', JSON.stringify(capitalExpenseList));
+  }, [])
+
+  let retrievedData = JSON.parse(localStorage.getItem('setData'));
+
   const [totalCost, setTotalCost] = useState(0)
-  const [focusedExpense, setFocusedExpense] = useState(capitalExpenseList[0].name)
+  const [data, setData] = useState(retrievedData)
+  const [focusedExpense, setFocusedExpense] = useState(data[0].name)
 
   return (
     <ChakraProvider theme={theme}>
@@ -23,14 +30,15 @@ function App() {
           templateColumns="1fr 3fr"
           >
             <SideBar
-            data={capitalExpenseList}
+            data={data}
             setFocusedExpense={setFocusedExpense}
             focusedExpense={focusedExpense}
             />
             
             <Main
             focusedExpense={focusedExpense}
-            data={capitalExpenseList}
+            data={data}
+            setData={setData}
             />
             
           </Grid>
