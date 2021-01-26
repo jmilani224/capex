@@ -30,6 +30,28 @@ export const capitalExpenseList = [
         name: "Water Heater",
         replacementCost: 600,
         lifespan: 10,
+        showReplacementOptions: true,
+        unit: "water heater",
+        replacementOptions: [
+            { 
+                name: "55 Gallon",
+                units: 1,
+                unitCost: 500,
+                note: "A little bit of hot water, as a treat."
+            },
+            { 
+                name: "75 Gallon",
+                units: 1,
+                unitCost: 1000,
+                note: "Hotter, wetter, water."
+            },
+            { 
+                name: "Tankless",
+                units: 1,
+                unitCost: 1000,
+                note: "Hotter water faster."
+            }
+        ]
     },
     {
         name: "Appliances (all)",

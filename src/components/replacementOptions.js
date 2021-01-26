@@ -15,7 +15,9 @@ import {
     FormLabel,
     Stat,
     StatLabel,
-    StatNumber
+    StatNumber,
+    Tooltip,
+    useToast
   } from "@chakra-ui/react"
 
 const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
@@ -26,7 +28,9 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
     const [selectedOptionArr, setSelectedOptionArr] = useState([])
     const [units, setUnits] = useState(0)
     const [unitCost, setUnitCost] = useState(0)
+    const [itemNote, setItemNote] = useState('Select a product.')
     const [totalCost, setTotalCost] = useState(0)
+    const toast = useToast()
 
     const handleSelectOption = e => {
         setSelectedOption(e.target.value)
@@ -39,6 +43,7 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
     useEffect(() => {
         setUnits(selectedOptionArr[0]?.units)
         setUnitCost(selectedOptionArr[0]?.unitCost)
+        setItemNote(selectedOptionArr[0]?.note)
     }, [selectedOptionArr])
 
     useEffect(() => {
@@ -66,16 +71,20 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
 
             <DrawerBody>
             <Box>
-                <Select
-                placeholder="Select option"
-                mb={8}
-                value={selectedOption}
-                onChange={handleSelectOption}
-                >
-                    {data.replacementOptions.map( i => (
-                        <option key={i.name} value={i.name}>{i.name}</option>
-                    ))}
-                </Select>
+                <Tooltip label={itemNote} aria-label="A tooltip">
+                
+            
+                    <Select
+                    placeholder="Select option"
+                    mb={8}
+                    value={selectedOption}
+                    onChange={handleSelectOption}
+                    >
+                        {data.replacementOptions.map( i => (
+                            <option key={i.name} value={i.name}>{i.name}</option>
+                        ))}
+                    </Select>
+                </Tooltip>
                 <FormLabel htmlFor="units">Number of units ({data.unit})</FormLabel>
                 <Input
                 type="number"
@@ -108,6 +117,12 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
               <Button color="blue" onClick={() => {
                   onClose()
                   setReplacementCost(totalCost)
+                  toast({
+                    title: "Replacement Cost Updated.",
+                    status: "success",
+                    duration: 2000,
+                    isClosable: true,
+                  })
                   }}>Save</Button>
             </DrawerFooter>
           </DrawerContent>

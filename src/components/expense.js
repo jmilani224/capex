@@ -7,7 +7,7 @@ import {
     Flex,
     Stat,
     StatLabel,
-    StatNumber
+    StatNumber,
 } from '@chakra-ui/react'
 import ReplacementOptionsDrawer from './replacementOptions'
 
