@@ -41,9 +41,9 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
     }, [selectedOption])
 
     useEffect(() => {
-        setUnits(selectedOptionArr[0]?.units)
-        setUnitCost(selectedOptionArr[0]?.unitCost)
-        setItemNote(selectedOptionArr[0]?.note)
+        setUnits(selectedOptionArr[0] ? selectedOptionArr[0].units : null)
+        setUnitCost(selectedOptionArr[0] ? selectedOptionArr[0].unitCost : null)
+        setItemNote(selectedOptionArr[0] ? selectedOptionArr[0].note : null)
     }, [selectedOptionArr])
 
     useEffect(() => {
@@ -118,7 +118,7 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
                   onClose()
                   setReplacementCost(totalCost)
                   toast({
-                    title: "Replacement Cost Updated.",
+                    title: "Replacement Cost Updated",
                     status: "success",
                     duration: 2000,
                     isClosable: true,
