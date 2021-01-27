@@ -21,7 +21,7 @@ function App() {
 
   const [totalCost, setTotalCost] = useState(0)
   const [data, setData] = useState(retrievedData)
-  const [focusedExpense, setFocusedExpense] = useState(data[0].name)
+  const [focusedExpense, setFocusedExpense] = useState(data[0]?.name)
 
   return (
     <ChakraProvider theme={theme}>
