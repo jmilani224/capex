@@ -8,6 +8,7 @@ import {
     Stat,
     StatLabel,
     StatNumber,
+    Button,
 } from '@chakra-ui/react'
 import ReplacementOptionsDrawer from './replacementOptions'
 
@@ -20,12 +21,26 @@ const Expense = ({ data }) => {
     
     const handleMonthlyCAPEX = () => {
         const monthsLeft = (lifespan - age) * 12;
-        return Math.ceil(replacementCost / monthsLeft)
+        const monthlyCost = Math.ceil(replacementCost / monthsLeft)
+        return isNaN(monthlyCost) ? 0 : monthlyCost
     }
 
     const handleAnnualCAPEX = () => {
         const yearsLeft = lifespan - age;
-        return Math.ceil(replacementCost / yearsLeft)
+        const annualCost = Math.ceil(replacementCost / yearsLeft)
+        return isNaN(annualCost) ? 0 : annualCost
+    }
+
+    const handleClear = () => {
+        setReplacementCost(0)
+        setLifespan(0)
+        setAge(0)
+    }
+
+    const handleDefault = () => {
+        setReplacementCost(data.replacementCost)
+        setLifespan(data.lifespan)
+        setAge(0)
     }
 
 
@@ -90,6 +105,19 @@ const Expense = ({ data }) => {
                 </Stat>
 
             </Flex>
+
+            <Box
+            mt={8}
+            >
+                <Button
+                mr={12}
+                onClick={handleClear}
+                >Clear Values</Button>
+                <Button
+                mr={12}
+                onClick={handleDefault}
+                >Reset to Default</Button>
+            </Box>
 
         </Box>
     )
