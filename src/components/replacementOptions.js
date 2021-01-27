@@ -40,11 +40,11 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
         setSelectedOptionArr(data.replacementOptions.filter(i => i.name === selectedOption))
     }, [selectedOption])
 
-    // useEffect(() => {
-    //     setUnits(selectedOptionArr[0]?.units)
-    //     setUnitCost(selectedOptionArr[0]?.unitCost)
-    //     setItemNote(selectedOptionArr[0]?.note)
-    // }, [selectedOptionArr])
+    useEffect(() => {
+        setUnits(selectedOptionArr[0]?.units)
+        setUnitCost(selectedOptionArr[0]?.unitCost)
+        setItemNote(selectedOptionArr[0]?.note)
+    }, [selectedOptionArr])
 
     useEffect(() => {
         setTotalCost(units * unitCost)
