@@ -19,10 +19,12 @@ import {
     Tooltip,
     useToast
   } from "@chakra-ui/react"
+  import useDidMountEffect from '../hooks/useDidMountEffect'
 
 const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
+    const toast = useToast()
 
     const [selectedOption, setSelectedOption] = useState('')
     const [selectedOptionArr, setSelectedOptionArr] = useState([])
@@ -30,7 +32,7 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
     const [unitCost, setUnitCost] = useState(0)
     const [itemNote, setItemNote] = useState('Select a product.')
     const [totalCost, setTotalCost] = useState(0)
-    const toast = useToast()
+    
 
     const handleSelectOption = e => {
         setSelectedOption(e.target.value)
@@ -40,7 +42,7 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
         setSelectedOptionArr(data.replacementOptions.filter(i => i.name === selectedOption))
     }, [selectedOption])
 
-    useEffect(() => {
+    useDidMountEffect(() => {
         setUnits(selectedOptionArr[0]?.units)
         setUnitCost(selectedOptionArr[0]?.unitCost)
         setItemNote(selectedOptionArr[0]?.note)
