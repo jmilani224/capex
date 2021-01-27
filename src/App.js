@@ -9,19 +9,15 @@ import Header from './components/header'
 import SideBar from './components/sideBar';
 import Main from './components/main'
 
-import { capitalExpenseList } from './data'
+import { capitalExpenseList as data } from './data'
 
 
 function App() {
-  useEffect(() => {
-    localStorage.setItem('setData', JSON.stringify(capitalExpenseList));
-  }, [])
 
-  let retrievedData = JSON.parse(localStorage.getItem('setData'));
+  const [focusedExpense, setFocusedExpense] = useState(data[0]?.name)
 
   const [totalCost, setTotalCost] = useState(0)
-  const [data, setData] = useState(retrievedData)
-  const [focusedExpense, setFocusedExpense] = useState(data[0]?.name)
+  
 
   return (
     <ChakraProvider theme={theme}>
@@ -38,7 +34,6 @@ function App() {
             <Main
             focusedExpense={focusedExpense}
             data={data}
-            setData={setData}
             />
             
           </Grid>
