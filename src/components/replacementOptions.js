@@ -20,7 +20,7 @@ import {
     useToast
   } from "@chakra-ui/react"
 
-const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
+const ReplacementOptionsDrawer = ({ filteredData, setReplacementCost }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
     const toast = useToast()
@@ -38,7 +38,7 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
     }
 
     useEffect(() => {
-        setSelectedOptionArr(data.replacementOptions.filter(i => i.name === selectedOption))
+        setSelectedOptionArr(filteredData.replacementOptions.filter(i => i.name === selectedOption))
     }, [selectedOption])
 
     useEffect(() => {
@@ -81,12 +81,12 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
                     value={selectedOption}
                     onChange={handleSelectOption}
                     >
-                        {data.replacementOptions.map( i => (
+                        {filteredData.replacementOptions.map( i => (
                             <option key={i.name} value={i.name}>{i.name}</option>
                         ))}
                     </Select>
                 </Tooltip>
-                <FormLabel htmlFor="units">Number of units ({data.unit})</FormLabel>
+                <FormLabel htmlFor="units">Number of units ({filteredData.unit})</FormLabel>
                 <Input
                 type="number"
                 mb={8}
@@ -95,7 +95,7 @@ const ReplacementOptionsDrawer = ({ data, setReplacementCost }) => {
                     setUnits(e.target.value)
                 }}
                 />
-                <FormLabel htmlFor="unitCost">Price per {data.unit} (dollars)</FormLabel>
+                <FormLabel htmlFor="unitCost">Price per {filteredData.unit} (dollars)</FormLabel>
                 <Input
                 type="number"
                 mb={8}

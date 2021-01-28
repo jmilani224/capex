@@ -2,8 +2,9 @@ import React from 'react'
 import { Flex } from '@chakra-ui/react'
 import Expense from './expense'
 
-const Main = ({ focusedExpense, data }) => {
+const Main = ({ focusedExpense, data, setData }) => {
     const filteredData = data.filter(i => focusedExpense === i.name)[0]
+   // console.log(filteredData)
     
     return (
         <main>
@@ -11,7 +12,12 @@ const Main = ({ focusedExpense, data }) => {
                 justifyContent="center"
                 mt={10}
                 >
-                    <Expense key={filteredData.name} data={filteredData} />
+                    <Expense
+                    key={filteredData.name}
+                    filteredData={filteredData}
+                    data={data}
+                    setData={setData}
+                    />
             </Flex>
         </main>
     )

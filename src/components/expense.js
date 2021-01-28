@@ -4,31 +4,60 @@ import {
     Box,
     FormLabel,
     Input,
-    Flex,
     Stat,
     StatLabel,
     StatNumber,
     Button,
+    Grid,
 } from '@chakra-ui/react'
 import ReplacementOptionsDrawer from './replacementOptions'
+import { capitalExpenseList } from '../data'
+import useUpdateUserData from '../hooks/useUpdateUserData'
 
-const Expense = ({ data }) => {
-    const [replacementCost, setReplacementCost] = useState(data.replacementCost)
-    const [lifespan, setLifespan] = useState(data.lifespan)
+const Expense = ({ data, setData, filteredData }) => {
+    const [replacementCost, setReplacementCost] = useState(filteredData.replacementCost)
+    const [lifespan, setLifespan] = useState(filteredData.lifespan)
     const [age, setAge] = useState(0)
     const [monthlyCAPEX, setMonthlyCAPEX] = useState(0)
     const [annualCAPEX, setAnnualCAPEX] = useState(0)
+
+
+    const handleReplacementCost = e => {
+        setReplacementCost(parseInt(e.target.value))
+    }
+
+    useUpdateUserData("replacementCost", replacementCost, data, filteredData, setData)
+
+    const handleLifespan = e => {
+        setLifespan(parseInt(e.target.value))
+    }
+
+    useUpdateUserData("lifespan", lifespan, data, filteredData, setData)
+
+    const handleAge = e => {
+        setAge(parseInt(e.target.value))
+    }
+
+    useUpdateUserData("age", age, data, filteredData, setData)
     
     const handleMonthlyCAPEX = () => {
         const monthsLeft = (lifespan - age) * 12;
         const monthlyCost = Math.ceil(replacementCost / monthsLeft)
-        return isNaN(monthlyCost) ? 0 : monthlyCost
+        return isNaN(monthlyCost) || !isFinite(monthlyCost)
+        ?
+        0
+        :
+        monthlyCost
     }
 
     const handleAnnualCAPEX = () => {
         const yearsLeft = lifespan - age;
         const annualCost = Math.ceil(replacementCost / yearsLeft)
-        return isNaN(annualCost) ? 0 : annualCost
+        return isNaN(annualCost) || !isFinite(annualCost)
+        ?
+        0
+        :
+        annualCost
     }
 
     const handleClear = () => {
@@ -38,16 +67,21 @@ const Expense = ({ data }) => {
     }
 
     const handleDefault = () => {
-        setReplacementCost(data.replacementCost)
-        setLifespan(data.lifespan)
+        const defaultData = capitalExpenseList.filter(i => i.name === filteredData.name)
+        setReplacementCost(defaultData[0]?.replacementCost)
+        setLifespan(defaultData[0]?.lifespan)
         setAge(0)
     }
-
+    
 
     useEffect(() => {
         setMonthlyCAPEX(handleMonthlyCAPEX)
         setAnnualCAPEX(handleAnnualCAPEX)
     }, [data, replacementCost, lifespan, age])
+
+    useEffect(() => {
+        localStorage.setItem('capexData', JSON.stringify(data));
+      }, [data]);
     
     return (
         <Box
@@ -57,20 +91,20 @@ const Expense = ({ data }) => {
             <Heading
             mb={8}
             >
-                {data.name}
+                {filteredData.name}
             </Heading>
 
-            <form key={data.name}>
+            <form key={filteredData.name}>
                 <FormLabel htmlFor="replaceCost">Replacement Cost (dollars)</FormLabel>
                 <Input
                 w="20rem"
                 mb={8}
                 type="number"
                 value={replacementCost}
-                onChange={e => setReplacementCost(e.target.value)}
+                onChange={handleReplacementCost}
                 />
 
-                {data.showReplacementOptions && <ReplacementOptionsDrawer data={data} setReplacementCost={setReplacementCost} />}
+                {filteredData.showReplacementOptions && <ReplacementOptionsDrawer filteredData={filteredData} setReplacementCost={setReplacementCost} />}
 
                 <FormLabel htmlFor="lifespan">Lifespan (years)</FormLabel>
                 <Input
@@ -78,7 +112,7 @@ const Expense = ({ data }) => {
                 mb={8}
                 type="number"
                 value={lifespan}
-                onChange={e => setLifespan(e.target.value, 10)}
+                onChange={handleLifespan}
                 />
 
                 <FormLabel htmlFor="age">Age (years)</FormLabel>
@@ -87,39 +121,52 @@ const Expense = ({ data }) => {
                 mb={8}
                 type="number"
                 value={age}
-                onChange={e => setAge(e.target.value, 10)}
+                onChange={handleAge}
                 />
                 
             </form>
 
-            <Flex>
+            <Grid
+            maxW="30rem"
+            grid-template-columns="repeat(2, 10rem)"
+            grid-template-rows="repeat(2, 10rem)"
+            rowGap={8}
+            >
 
-                <Stat>
+                <Stat
+                gridColumnStart="1"
+                gridColumnEnd="2"
+                >
                     <StatLabel>Monthly CAPEX</StatLabel>
                     <StatNumber>{monthlyCAPEX}</StatNumber>
                 </Stat>
 
-                <Stat>
+                <Stat
+                gridColumnStart="2"
+                gridColumnEnd="3"
+                >
                     <StatLabel>Annual CAPEX</StatLabel>
                     <StatNumber>{annualCAPEX}</StatNumber>
                 </Stat>
 
-            </Flex>
 
-            <Box
-            mt={8}
-            >
+
                 <Button
-                mr={12}
+                w="70%"
+                gridRowStart="2"
                 onClick={handleClear}
-                >Clear Values</Button>
-                <Button
-                mr={12}
-                onClick={handleDefault}
-                >Reset to Default</Button>
-            </Box>
+                >Clear Values
+                </Button>
 
-        </Box>
+                <Button
+                w="70%"
+                gridRowStart="2"
+                onClick={handleDefault}
+                >Reset to Default
+                </Button>
+
+        </Grid>
+    </Box>    
     )
 }
 
