@@ -3,6 +3,7 @@ export const capitalExpenseList = [
         name: "Roof",
         replacementCost: 5000,
         lifespan: 25,
+        age: 0,
         showReplacementOptions: true,
         unit: "sq. ft.",
         replacementOptions: [
@@ -30,6 +31,7 @@ export const capitalExpenseList = [
         name: "Water Heater",
         replacementCost: 600,
         lifespan: 10,
+        age: 0,
         showReplacementOptions: true,
         unit: "water heater",
         replacementOptions: [
@@ -57,55 +59,66 @@ export const capitalExpenseList = [
         name: "Appliances (all)",
         replacementCost: 1000,
         lifespan: 10,
+        age: 0,
     },
     {
         name: "Driveway or Parking Lot",
         replacementCost: 5000,
         lifespan: 50,
+        age: 0,
     },
     {
         name: "HVAC",
         replacementCost: 3000,
         lifespan: 20,
+        age: 0,
     },
     {
         name: "Flooring",
         replacementCost: 2000,
         lifespan: 6,
+        age: 0,
     },
     {
         name: "Plumbing",
         replacementCost: 3000,
         lifespan: 30,
+        age: 0,
     },
     {
         name: "Windows",
         replacementCost: 5000,
         lifespan: 50,
+        age: 0,
     },
     {
         name: "Paint",
         replacementCost: 2500,
         lifespan: 5,
+        age: 0,
     },
     {
         name: "Cabinets and Counters",
         replacementCost: 3000,
         lifespan: 20,
+        age: 0,
     },
     {
         name: "Structure (framing and foundation)",
         replacementCost: 10000,
         lifespan: 50,
+        age: 0,
     },
     {
         name: "Components (garage door, etc.)",
         replacementCost: 1000,
         lifespan: 10,
+        age: 0,
     },
     {
         name: "Landscaping",
         replacementCost: 1000,
         lifespan: 10,
+        age: 0,
     },
 ]
