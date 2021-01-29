@@ -15,12 +15,16 @@ import { capitalExpenseList } from '../data'
 import useUpdateUserData from '../hooks/useUpdateUserData'
 
 const Expense = ({ data, setData, filteredData }) => {
-    console.log(data)
     const [replacementCost, setReplacementCost] = useState(filteredData.replacementCost)
     const [lifespan, setLifespan] = useState(filteredData.lifespan)
     const [age, setAge] = useState(filteredData.age)
     const [monthlyCAPEX, setMonthlyCAPEX] = useState(0)
     const [annualCAPEX, setAnnualCAPEX] = useState(0)
+    const [formInputs, setFormInputs] = useState({
+        replacementCost: filteredData.replacementCost,
+        lifespan: filteredData.lifespan,
+        age: 0,
+    })
 
     const handleReplacementCost = e => {
         setReplacementCost(parseInt(e.target.value))

@@ -6,6 +6,7 @@ const useUpdateUserData = ({ key, value, data, filteredData, setter }) => {
             ...filteredData,
             [key]: value
         }]
+
         const newUserData = data.map(obj => newUserInput.find(o => o.name === obj.name) || obj)
         
         setter({
