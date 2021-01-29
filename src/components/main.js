@@ -4,7 +4,6 @@ import Expense from './expense'
 
 const Main = ({ focusedExpense, data, setData }) => {
     const filteredData = data.filter(i => focusedExpense === i.name)[0]
-   // console.log(filteredData)
     
     return (
         <main>

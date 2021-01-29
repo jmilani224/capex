@@ -15,6 +15,7 @@ import { capitalExpenseList } from '../data'
 import useUpdateUserData from '../hooks/useUpdateUserData'
 
 const Expense = ({ data, setData, filteredData }) => {
+
     const [replacementCost, setReplacementCost] = useState(filteredData.replacementCost)
     const [lifespan, setLifespan] = useState(filteredData.lifespan)
     const [age, setAge] = useState(0)
@@ -26,19 +27,37 @@ const Expense = ({ data, setData, filteredData }) => {
         setReplacementCost(parseInt(e.target.value))
     }
 
-    useUpdateUserData("replacementCost", replacementCost, data, filteredData, setData)
+    useUpdateUserData({
+        key: "replacementCost",
+        value: replacementCost,
+        data: data,
+        filteredData: filteredData,
+        setter: setData
+    })
 
     const handleLifespan = e => {
         setLifespan(parseInt(e.target.value))
     }
 
-    useUpdateUserData("lifespan", lifespan, data, filteredData, setData)
+    useUpdateUserData({
+        key: "lifespan",
+        value: lifespan,
+        data: data,
+        filteredData: filteredData,
+        setter: setData
+    })
 
     const handleAge = e => {
         setAge(parseInt(e.target.value))
     }
 
-    useUpdateUserData("age", age, data, filteredData, setData)
+    useUpdateUserData({
+        key: "age",
+        value: age,
+        data: data,
+        filteredData: filteredData,
+        setter: setData
+    })
     
     const handleMonthlyCAPEX = () => {
         const monthsLeft = (lifespan - age) * 12;

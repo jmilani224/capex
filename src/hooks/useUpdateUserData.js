@@ -1,10 +1,11 @@
 import { useEffect } from 'react'
 
-const useUpdateUserData = (key, input, data, filteredData, setter) => {
+const useUpdateUserData = ({ key, value, data, filteredData, setter }) => {
+    console.log(value)
     useEffect(() => {
         const newUserInput = [{
             ...filteredData,
-            [key]: input
+            [key]: value
         }]
         
         const newUserData = data.map(obj => newUserInput.find(o => o.name === obj.name) || obj)
@@ -13,7 +14,7 @@ const useUpdateUserData = (key, input, data, filteredData, setter) => {
             loading: false,
             user: newUserData
         })
-    }, [input])
+    }, [value])
 }
 
 export default useUpdateUserData
