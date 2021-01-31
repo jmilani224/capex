@@ -15,9 +15,6 @@ import { capitalExpenseList } from '../data'
 import useUpdateUserData from '../hooks/useUpdateUserData'
 
 const Expense = ({ data, setData, filteredData }) => {
-    const [replacementCost, setReplacementCost] = useState(filteredData.replacementCost)
-    const [lifespan, setLifespan] = useState(filteredData.lifespan)
-    const [age, setAge] = useState(filteredData.age)
     const [monthlyCAPEX, setMonthlyCAPEX] = useState(0)
     const [annualCAPEX, setAnnualCAPEX] = useState(0)
     const [formInputs, setFormInputs] = useState({
@@ -33,39 +30,9 @@ const Expense = ({ data, setData, filteredData }) => {
         })
     }
 
-    //TODO: Update custom hook
-
-    const handleReplacementCost = e => {
-        setReplacementCost(parseInt(e.target.value))
-    }
-
     useUpdateUserData({
         data: data,
         inputObj: formInputs,
-        filteredData: filteredData,
-        setter: setData
-    })
-
-    const handleLifespan = e => {
-        setLifespan(parseInt(e.target.value))
-    }
-
-    useUpdateUserData({
-        key: "lifespan",
-        value: lifespan,
-        data: data,
-        filteredData: filteredData,
-        setter: setData
-    })
-
-    const handleAge = e => {
-        setAge(parseInt(e.target.value))
-    }
-
-    useUpdateUserData({
-        key: "age",
-        value: age,
-        data: data,
         filteredData: filteredData,
         setter: setData
     })
@@ -107,7 +74,6 @@ const Expense = ({ data, setData, filteredData }) => {
         })
     }
     
-
     useEffect(() => {
         setMonthlyCAPEX(handleMonthlyCAPEX)
         setAnnualCAPEX(handleAnnualCAPEX)
@@ -138,7 +104,12 @@ const Expense = ({ data, setData, filteredData }) => {
                 onChange={e => handleInputChange(e, "replacementCost")}
                 />
 
-                {filteredData.showReplacementOptions && <ReplacementOptionsDrawer filteredData={filteredData} setReplacementCost={setReplacementCost} />}
+                {filteredData.showReplacementOptions &&
+                <ReplacementOptionsDrawer
+                filteredData={filteredData}
+                formInputs={formInputs}
+                setFormInputs={setFormInputs}
+                />}
 
                 <FormLabel htmlFor="lifespan">Lifespan (years)</FormLabel>
                 <Input

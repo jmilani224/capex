@@ -20,7 +20,7 @@ import {
     useToast
   } from "@chakra-ui/react"
 
-const ReplacementOptionsDrawer = ({ filteredData, setReplacementCost }) => {
+const ReplacementOptionsDrawer = ({ filteredData, formInputs, setFormInputs }) => {
     const { isOpen, onOpen, onClose } = useDisclosure()
     const btnRef = useRef()
     const toast = useToast()
@@ -117,7 +117,10 @@ const ReplacementOptionsDrawer = ({ filteredData, setReplacementCost }) => {
               </Button>
               <Button color="blue" onClick={() => {
                   onClose()
-                  setReplacementCost(totalCost)
+                  setFormInputs({
+                    ...formInputs,
+                    replacementCost:totalCost
+                  })
                   toast({
                     title: "Replacement Cost Updated",
                     status: "success",
