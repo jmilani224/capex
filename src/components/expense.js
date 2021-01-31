@@ -26,14 +26,22 @@ const Expense = ({ data, setData, filteredData }) => {
         age: 0,
     })
 
+    const handleInputChange = (e, name) => {
+        setFormInputs({
+            ...formInputs,
+            [name]: parseInt(e.target.value, 10)
+        })
+    }
+
+    //TODO: Update custom hook
+
     const handleReplacementCost = e => {
         setReplacementCost(parseInt(e.target.value))
     }
 
     useUpdateUserData({
-        key: "replacementCost",
-        value: replacementCost,
         data: data,
+        inputObj: formInputs,
         filteredData: filteredData,
         setter: setData
     })
@@ -63,8 +71,8 @@ const Expense = ({ data, setData, filteredData }) => {
     })
     
     const handleMonthlyCAPEX = () => {
-        const monthsLeft = (lifespan - age) * 12;
-        const monthlyCost = Math.ceil(replacementCost / monthsLeft)
+        const monthsLeft = (formInputs.lifespan - formInputs.age) * 12;
+        const monthlyCost = Math.ceil(formInputs.replacementCost / monthsLeft)
         return isNaN(monthlyCost) || !isFinite(monthlyCost)
         ?
         0
@@ -73,8 +81,8 @@ const Expense = ({ data, setData, filteredData }) => {
     }
 
     const handleAnnualCAPEX = () => {
-        const yearsLeft = lifespan - age;
-        const annualCost = Math.ceil(replacementCost / yearsLeft)
+        const yearsLeft = formInputs.lifespan - formInputs.age;
+        const annualCost = Math.ceil(formInputs.replacementCost / yearsLeft)
         return isNaN(annualCost) || !isFinite(annualCost)
         ?
         0
@@ -83,23 +91,27 @@ const Expense = ({ data, setData, filteredData }) => {
     }
 
     const handleClear = () => {
-        setReplacementCost(0)
-        setLifespan(0)
-        setAge(0)
+        setFormInputs({
+            replacementCost: 0,
+            lifespan: 0,
+            age: 0,
+        })
     }
 
     const handleDefault = () => {
         const defaultData = capitalExpenseList.filter(i => i.name === filteredData.name)
-        setReplacementCost(defaultData[0]?.replacementCost)
-        setLifespan(defaultData[0]?.lifespan)
-        setAge(0)
+        setFormInputs({
+            replacementCost: defaultData[0]?.replacementCost,
+            lifespan: defaultData[0]?.lifespan,
+            age: 0,
+        })
     }
     
 
     useEffect(() => {
         setMonthlyCAPEX(handleMonthlyCAPEX)
         setAnnualCAPEX(handleAnnualCAPEX)
-    }, [data, replacementCost, lifespan, age])
+    }, [data, formInputs])
 
     useEffect(() => {
         localStorage.setItem('capexData', JSON.stringify(data));
@@ -122,8 +134,8 @@ const Expense = ({ data, setData, filteredData }) => {
                 w="20rem"
                 mb={8}
                 type="number"
-                value={replacementCost}
-                onChange={handleReplacementCost}
+                value={formInputs.replacementCost}
+                onChange={e => handleInputChange(e, "replacementCost")}
                 />
 
                 {filteredData.showReplacementOptions && <ReplacementOptionsDrawer filteredData={filteredData} setReplacementCost={setReplacementCost} />}
@@ -133,8 +145,8 @@ const Expense = ({ data, setData, filteredData }) => {
                 w="20rem"
                 mb={8}
                 type="number"
-                value={lifespan}
-                onChange={handleLifespan}
+                value={formInputs.lifespan}
+                onChange={e => handleInputChange(e, "lifespan")}
                 />
 
                 <FormLabel htmlFor="age">Age (years)</FormLabel>
@@ -142,8 +154,8 @@ const Expense = ({ data, setData, filteredData }) => {
                 w="20rem"
                 mb={8}
                 type="number"
-                value={age}
-                onChange={handleAge}
+                value={formInputs.age}
+                onChange={e => handleInputChange(e, "age")}
                 />
                 
             </form>
