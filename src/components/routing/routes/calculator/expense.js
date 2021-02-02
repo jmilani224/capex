@@ -11,8 +11,8 @@ import {
     Grid,
 } from '@chakra-ui/react'
 import ReplacementOptionsDrawer from './replacementOptions'
-import { capitalExpenseList } from '../data'
-import useUpdateUserData from '../hooks/useUpdateUserData'
+import { capitalExpenseList } from '../../../../data'
+import useUpdateUserData from '../../../../hooks/useUpdateUserData'
 
 const Expense = ({ data, setData, filteredData }) => {
     const [monthlyCAPEX, setMonthlyCAPEX] = useState(0)

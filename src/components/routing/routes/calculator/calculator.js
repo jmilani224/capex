@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid } from '@chakra-ui/react'
-import SideBar from '../../sideBar'
-import Main from '../../main'
+import SideBar from '../calculator/sideBar'
+import Main from './main'
 
 const Calculator = ({ data, setData, setFocusedExpense, focusedExpense}) => {
     return (

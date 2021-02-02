@@ -5,7 +5,6 @@ import {
   } from "react-router-dom";
 
 const RouteSwitch = ({ CalculatorRoute, Outlook }) => {
-    console.log(CalculatorRoute)
     return (
         <>
             <Switch>

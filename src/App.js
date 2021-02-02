@@ -10,7 +10,7 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Header from './components/header/header'
 import RouteSwitch from './components/routing/routeSwitch'
-import Calculator from './components/routing/routes/calculator'
+import Calculator from './components/routing/routes/calculator/calculator'
 
 import { capitalExpenseList } from './data'
 
