@@ -8,12 +8,11 @@ import {
   Box
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
-import Header from './components/header'
-import SideBar from './components/sideBar';
-import Main from './components/main'
+import Header from './components/header/header'
+import RouteSwitch from './components/routing/routeSwitch'
+import Calculator from './components/routing/routes/calculator'
 
 import { capitalExpenseList } from './data'
-
 
 function App() {
   
@@ -23,6 +22,14 @@ function App() {
     loading: true,
     user: []
   })
+
+  const CalculatorRoute = 
+(<Calculator
+  data={data.user}
+  setFocusedExpense={setFocusedExpense}
+  focusedExpense={focusedExpense}
+  setData={setData}
+  />)
 
 useEffect(() => {
     setData({
@@ -48,22 +55,11 @@ useEffect(() => {
   return (
     <ChakraProvider theme={theme}>
           <Header />
-          <Grid
-          templateColumns="1fr 3fr"
-          >
-            <SideBar
-            data={data.user}
-            setFocusedExpense={setFocusedExpense}
-            focusedExpense={focusedExpense}
-            />
-            
-            <Main
-            focusedExpense={focusedExpense}
-            data={data.user}
-            setData={setData}
-            />
-            
-          </Grid>
+
+          <RouteSwitch
+          CalculatorRoute={CalculatorRoute}
+          />
+
     </ChakraProvider>
   );
 }

@@ -119,7 +119,7 @@ const ReplacementOptionsDrawer = ({ filteredData, formInputs, setFormInputs }) =
                   onClose()
                   setFormInputs({
                     ...formInputs,
-                    replacementCost:totalCost
+                    replacementCost: totalCost
                   })
                   toast({
                     title: "Replacement Cost Updated",

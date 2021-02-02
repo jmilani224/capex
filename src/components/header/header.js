@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Heading } from '@chakra-ui/react'
+import Nav from './nav'
 
 const Header = () => {
     return (
@@ -14,6 +15,7 @@ const Header = () => {
             >
                 Extremely Good CAPEX Calculator
             </Heading>
+            <Nav />
         </Box>
     )
 }

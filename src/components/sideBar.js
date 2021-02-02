@@ -6,7 +6,8 @@ const SideBar = ({ data, focusedExpense, setFocusedExpense }) => {
         <Box
         w="100%"
         h="100vh"
-        borderRight="1px solid gray"
+        borderRight="1px solid"
+        borderColor="gray.100"
         overflow="scroll"
         >
             {data.map(i => (
@@ -25,16 +26,14 @@ const SideBarItem = ({ data, focusedExpense, setFocusedExpense }) => {
 
     return (
         <Box
-        borderBottom="1px solid gray"
-        py="1.9rem"
+        py="0.8rem"
         pl="2rem"
         onClick={() => setFocusedExpense(data.name)}
         cursor="pointer"
-        borderLeft={"5px solid white"}
-        borderLeftColor={focusedExpense === data.name && "#eabc43"}
+        backgroundColor={focusedExpense === data.name && "gray.100"}
         >
             <Text
-            fontWeight="600"
+            fontWeight="400"
             >{data.name}</Text>
         </Box>
     )
