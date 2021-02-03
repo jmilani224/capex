@@ -12,11 +12,10 @@ import {
 } from '@chakra-ui/react'
 import ReplacementOptionsDrawer from './replacementOptions'
 import { capitalExpenseList } from '../../../../data'
+import { useMonthlyCAPEX, useAnnualCAPEX } from '../../../../hooks/useTotalCAPEX'
 import useUpdateUserData from '../../../../hooks/useUpdateUserData'
 
 const Expense = ({ data, setData, filteredData }) => {
-    const [monthlyCAPEX, setMonthlyCAPEX] = useState(0)
-    const [annualCAPEX, setAnnualCAPEX] = useState(0)
     const [formInputs, setFormInputs] = useState({
         replacementCost: filteredData.replacementCost,
         lifespan: filteredData.lifespan,
@@ -36,26 +35,7 @@ const Expense = ({ data, setData, filteredData }) => {
         filteredData: filteredData,
         setter: setData
     })
-    
-    const handleMonthlyCAPEX = () => {
-        const monthsLeft = (formInputs.lifespan - formInputs.age) * 12;
-        const monthlyCost = Math.ceil(formInputs.replacementCost / monthsLeft)
-        return isNaN(monthlyCost) || !isFinite(monthlyCost)
-        ?
-        0
-        :
-        monthlyCost
-    }
 
-    const handleAnnualCAPEX = () => {
-        const yearsLeft = formInputs.lifespan - formInputs.age;
-        const annualCost = Math.ceil(formInputs.replacementCost / yearsLeft)
-        return isNaN(annualCost) || !isFinite(annualCost)
-        ?
-        0
-        :
-        annualCost
-    }
 
     const handleClear = () => {
         setFormInputs({
@@ -73,11 +53,6 @@ const Expense = ({ data, setData, filteredData }) => {
             age: 0,
         })
     }
-    
-    useEffect(() => {
-        setMonthlyCAPEX(handleMonthlyCAPEX)
-        setAnnualCAPEX(handleAnnualCAPEX)
-    }, [data, formInputs])
 
     useEffect(() => {
         localStorage.setItem('capexData', JSON.stringify(data));
@@ -143,7 +118,7 @@ const Expense = ({ data, setData, filteredData }) => {
                 gridColumnEnd="2"
                 >
                     <StatLabel>Monthly CAPEX</StatLabel>
-                    <StatNumber>{monthlyCAPEX}</StatNumber>
+                    <StatNumber>{useMonthlyCAPEX(filteredData)}</StatNumber>
                 </Stat>
 
                 <Stat
@@ -151,7 +126,7 @@ const Expense = ({ data, setData, filteredData }) => {
                 gridColumnEnd="3"
                 >
                     <StatLabel>Annual CAPEX</StatLabel>
-                    <StatNumber>{annualCAPEX}</StatNumber>
+                    <StatNumber>{useAnnualCAPEX(filteredData)}</StatNumber>
                 </Stat>
 
 

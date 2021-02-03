@@ -1,5 +1,6 @@
 import React from 'react'
 import { Box, Text } from '@chakra-ui/react'
+import { useMonthlyCAPEX, useAnnualCAPEX } from '../../../../hooks/useTotalCAPEX'
 
 const SideBar = ({ data, focusedExpense, setFocusedExpense }) => {
     return (
@@ -31,10 +32,19 @@ const SideBarItem = ({ data, focusedExpense, setFocusedExpense }) => {
         onClick={() => setFocusedExpense(data.name)}
         cursor="pointer"
         backgroundColor={focusedExpense === data.name && "gray.100"}
+        borderBottom="1px solid"
+        borderColor="gray.100"
         >
             <Text
+            fontWeight="600"
+            >{data.name}
+            </Text>
+            <Text
             fontWeight="400"
-            >{data.name}</Text>
+            color="gray.600"
+            >
+                ${useMonthlyCAPEX(data)} / ${useAnnualCAPEX(data)}
+            </Text>
         </Box>
     )
 }
