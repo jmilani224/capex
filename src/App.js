@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {
   ChakraProvider,
   theme,
-  Grid,
   Spinner,
   Flex,
   Box
@@ -10,35 +9,35 @@ import {
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Header from './components/header/header'
 import RouteSwitch from './components/routing/routeSwitch'
-import Calculator from './components/routing/routes/calculator/calculator'
 
-import { capitalExpenseList } from './data'
+import { propertyDetails } from './data'
 
 function App() {
   
-  const [focusedExpense, setFocusedExpense] = useState(capitalExpenseList[0]?.name)
+  const [focusedExpense, setFocusedExpense] = useState(propertyDetails.expenses[0]?.name)
   
-  const [data, setData] = useState({
+  const [fetchedPropertyData, setFetchedPropertyData] = useState({
     loading: true,
     user: []
   })
 
-  const CalculatorRoute = 
-(<Calculator
-  data={data.user}
-  setFocusedExpense={setFocusedExpense}
-  focusedExpense={focusedExpense}
-  setData={setData}
-  />)
-
 useEffect(() => {
-    setData({
+  if (!localStorage.getItem('capexData')) {
+    localStorage.setItem('capexData', JSON.stringify(propertyDetails));
+  }
+  setFetchedPropertyData({
       loading: false,
-      user: JSON.parse(localStorage.getItem('capexData')) || capitalExpenseList
+      user: JSON.parse(localStorage.getItem('capexData'))
     })
   }, [])
 
-  if (data.loading) return (
+  useEffect(() => {
+    localStorage.setItem('capexData', JSON.stringify(fetchedPropertyData.user))
+    }, [fetchedPropertyData])
+
+  //fetchedPropertyData = full propertyDetails from localStorage + loading state
+  
+  if (fetchedPropertyData.loading) return (
     <Flex
     justifyContent="center"
     alignItems="center"
@@ -57,7 +56,10 @@ useEffect(() => {
           <Header />
 
           <RouteSwitch
-          CalculatorRoute={CalculatorRoute}
+          fetchedPropertyData={fetchedPropertyData.user} //fetchedPropertyData = full propertyDetails, no loading state
+          setFetchedPropertyData={setFetchedPropertyData}
+          setFocusedExpense={setFocusedExpense}
+          focusedExpense={focusedExpense}
           />
 
     </ChakraProvider>

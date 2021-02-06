@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import {
     Heading,
     Box,
@@ -11,11 +11,13 @@ import {
     Grid,
 } from '@chakra-ui/react'
 import ReplacementOptionsDrawer from './replacementOptions'
-import { capitalExpenseList } from '../../../../data'
+import { propertyDetails } from '../../../../data'
 import { useMonthlyCAPEX, useAnnualCAPEX } from '../../../../hooks/useTotalCAPEX'
-import useUpdateUserData from '../../../../hooks/useUpdateUserData'
+import useUpdateExpensesData from '../../../../hooks/useUpdateExpensesData'
 
-const Expense = ({ data, setData, filteredData }) => {
+const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
+    const filteredData = expensesData.filter(i => focusedExpense === i.name)[0]
+
     const [formInputs, setFormInputs] = useState({
         replacementCost: filteredData.replacementCost,
         lifespan: filteredData.lifespan,
@@ -29,11 +31,11 @@ const Expense = ({ data, setData, filteredData }) => {
         })
     }
 
-    useUpdateUserData({
-        data: data,
+    useUpdateExpensesData({
+        data: expensesData,
         inputObj: formInputs,
         filteredData: filteredData,
-        setter: setData
+        setter: setFetchedPropertyData
     })
 
 
@@ -46,17 +48,13 @@ const Expense = ({ data, setData, filteredData }) => {
     }
 
     const handleDefault = () => {
-        const defaultData = capitalExpenseList.filter(i => i.name === filteredData.name)
+        const defaultData = propertyDetails.expenses.filter(i => i.name === filteredData.name)
         setFormInputs({
             replacementCost: defaultData[0]?.replacementCost,
             lifespan: defaultData[0]?.lifespan,
             age: 0,
         })
     }
-
-    useEffect(() => {
-        localStorage.setItem('capexData', JSON.stringify(data));
-      }, [data]);
     
     return (
         <Box

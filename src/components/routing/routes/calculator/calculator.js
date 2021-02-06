@@ -3,21 +3,27 @@ import { Grid } from '@chakra-ui/react'
 import SideBar from '../calculator/sideBar'
 import Main from './main'
 
-const Calculator = ({ data, setData, setFocusedExpense, focusedExpense}) => {
-    return (
+const Calculator = ({
+  expensesData,
+  setFetchedPropertyData,
+  setFocusedExpense,
+  focusedExpense
+  }) => {
+
+  return (
         <Grid
           templateColumns="1fr 3fr"
           >
             <SideBar
-            data={data}
-            setFocusedExpense={setFocusedExpense}
+            expensesData={expensesData}
             focusedExpense={focusedExpense}
+            setFocusedExpense={setFocusedExpense}
             />
             
             <Main
+            expensesData={expensesData}
+            setFetchedPropertyData={setFetchedPropertyData}
             focusedExpense={focusedExpense}
-            data={data}
-            setData={setData}
             />
             
           </Grid>

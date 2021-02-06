@@ -1,7 +1,7 @@
 # To Do
 
 # To Do Next
-* Set up Capex table
+* Set up Capex table - make it a dashboard - show capex funds on hand, monthly total, annual total, rent, etc.
 * Introduce multiple properties? Check with Dave at this point on what to do next
 
 ## Features

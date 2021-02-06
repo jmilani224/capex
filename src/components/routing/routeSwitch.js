@@ -3,21 +3,37 @@ import {
     Switch,
     Route
   } from "react-router-dom";
+  import Calculator from './routes/calculator/calculator'
+  import PropertyDetails from '../routing/routes/home/propertyDetails'
 
-const RouteSwitch = ({ CalculatorRoute, Outlook }) => {
+const RouteSwitch = ({
+  fetchedPropertyData,
+  setFetchedPropertyData,
+  focusedExpense,
+  setFocusedExpense,
+}) => {
     return (
         <>
             <Switch>
-        <Route path="/outlook">
-            <div>Outlook</div>
+        <Route path="/projections">
+            <div>Projections</div>
         </Route>
 
         <Route path="/calculator">
-          {CalculatorRoute}
+
+          <Calculator
+          expensesData={fetchedPropertyData.expenses} // expense data array for property only
+          setFetchedPropertyData={setFetchedPropertyData}
+          focusedExpense={focusedExpense}
+          setFocusedExpense={setFocusedExpense}
+          />
         </Route>
         
         <Route path="/">
-            <div>Home</div>
+            <PropertyDetails
+            fetchedPropertyData={fetchedPropertyData}
+            setFetchedPropertyData={setFetchedPropertyData}
+            />
         </Route>
       </Switch>
         </>

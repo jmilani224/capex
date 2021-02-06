@@ -10,7 +10,7 @@ import {
     TableCaption,
   } from "@chakra-ui/react"
 
-const OutlookChart = () => {
+const ProjectionsChart = () => {
     return (
         <Box>
 
@@ -18,4 +18,4 @@ const OutlookChart = () => {
     )
 }
 
-export default OutlookChart
+export default ProjectionsChart

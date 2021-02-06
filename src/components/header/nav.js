@@ -5,8 +5,9 @@ import { NavLink } from 'react-router-dom'
 const Nav = () => {
 
     const navArr = [
+        {name: "Property Details", href: "/"},
         {name: "Calculator", href: "calculator"},
-        {name: "Monthly Outlook", href: "outlook"},
+        {name: "Projections", href: "projections"},
     ]
     return (
         <Flex
@@ -15,7 +16,7 @@ const Nav = () => {
         justifyContent="center"
         >
             {navArr.map(i => (
-                <NavLink to={i.href}>
+                <NavLink key={i.name} to={i.href}>
                     <Text
                     pr={8}
                     cursor="pointer"
