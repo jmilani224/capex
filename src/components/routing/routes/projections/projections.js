@@ -69,7 +69,7 @@ const Projections = ({ fetchedPropertyData }) => {
     return (
         <Box p={8}>
             <Heading pb={8}>
-                Projected Expenses and Margin
+                Projected Expenses and Margin for {fetchedPropertyData.propertyName}
             </Heading>
             <Flex w="60vw">
                 <Stat pb={8}>
@@ -98,7 +98,7 @@ const Projections = ({ fetchedPropertyData }) => {
                 <Legend />
                 <Area type="monotone" dataKey="capexOnHand" fill="#8884d8" stroke="#8884d8" />
                 <Bar dataKey="totalDue" barSize={20} fill="#413ea0" />
-                <Line type="monotone" dataKey="margin" stroke="#ff7300" />
+                <Line type="monotone" dataKey="margin" dot={false} stroke="#ff7300" />
                 {/* <Scatter dataKey="cnt" fill="red" /> */}
             </ComposedChart>
         </Box>

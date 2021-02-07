@@ -2,6 +2,7 @@
 
 # To Do Next
 * When an expense it paid, its lifespan should start over in the chart
+* idea - how long you plan to own the property - any expenses past a certain time frame aren't added to the total
 
 
 * Set up Capex table - make it a dashboard - show capex funds on hand, monthly total, annual total, rent, etc.
