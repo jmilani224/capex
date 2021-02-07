@@ -1,10 +1,14 @@
 import React from 'react'
 import {
-    Box, Heading
+    Box,
+    Heading,
+    Stat,
+    StatLabel,
+    StatNumber
 } from '@chakra-ui/react'
 import {
     ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
-    Legend, Scatter,
+    Legend,
   } from 'recharts';
 import { monthlyCAPEX } from '../../../../helpers/totalCAPEX'
 
@@ -61,12 +65,17 @@ const Projections = ({ fetchedPropertyData }) => {
         })
     }
 
-    console.log(chartArr)
     return (
-        <Box>
-            <Heading p={8}>
+        <Box p={8}>
+            <Heading pb={8}>
                 Projected Expenses and Margin
             </Heading>
+
+            <Stat pb={8}>
+                <StatLabel>Total Monthly CAPEX</StatLabel>
+                <StatNumber>${totalMonthlyCAPEX}</StatNumber>
+            </Stat>
+
             <ComposedChart
                 width={800}
                 height={600}
