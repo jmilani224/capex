@@ -1,7 +1,11 @@
 import React from 'react'
 import {
-    Box
+    Box, Heading
 } from '@chakra-ui/react'
+import {
+    ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
+    Legend, Scatter,
+  } from 'recharts';
 import { monthlyCAPEX } from '../../../../helpers/totalCAPEX'
 
 
@@ -50,10 +54,8 @@ const Projections = ({ fetchedPropertyData }) => {
         
         chartArr.push({
             month: i + 1,
-            expensesDue: {
-                allExpenses: getExpensesDue(i),
-                totalCost: getTotalDue(i),
-            },
+            expensesDue: getExpensesDue(i),
+            totalDue: getTotalDue(i),
             capexOnHand: getCapexOnHand(i),
             margin: getMargin(i),
         })
@@ -62,7 +64,27 @@ const Projections = ({ fetchedPropertyData }) => {
     console.log(chartArr)
     return (
         <Box>
-
+            <Heading p={8}>
+                Projected Expenses and Margin
+            </Heading>
+            <ComposedChart
+                width={800}
+                height={600}
+                data={chartArr}
+                margin={{
+                top: 20, right: 20, bottom: 20, left: 20,
+                }}
+            >
+                <CartesianGrid stroke="#f5f5f5" />
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Area type="monotone" dataKey="capexOnHand" fill="#8884d8" stroke="#8884d8" />
+                <Bar dataKey="totalDue" barSize={20} fill="#413ea0" />
+                <Line type="monotone" dataKey="margin" stroke="#ff7300" />
+                {/* <Scatter dataKey="cnt" fill="red" /> */}
+            </ComposedChart>
         </Box>
     )
 }

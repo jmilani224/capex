@@ -1,7 +1,7 @@
 # To Do
 
 # To Do Next
-* Find out why the expenses are not changing anymore????
+* When an expense it paid, its lifespan should start over in the chart
 
 
 * Set up Capex table - make it a dashboard - show capex funds on hand, monthly total, annual total, rent, etc.
