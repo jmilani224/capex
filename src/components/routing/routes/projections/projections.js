@@ -4,7 +4,8 @@ import {
     Heading,
     Stat,
     StatLabel,
-    StatNumber
+    StatNumber,
+    Flex
 } from '@chakra-ui/react'
 import {
     ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip,
@@ -70,11 +71,17 @@ const Projections = ({ fetchedPropertyData }) => {
             <Heading pb={8}>
                 Projected Expenses and Margin
             </Heading>
+            <Flex w="60vw">
+                <Stat pb={8}>
+                    <StatLabel>Total Monthly CAPEX</StatLabel>
+                    <StatNumber>${totalMonthlyCAPEX}</StatNumber>
+                </Stat>
 
-            <Stat pb={8}>
-                <StatLabel>Total Monthly CAPEX</StatLabel>
-                <StatNumber>${totalMonthlyCAPEX}</StatNumber>
-            </Stat>
+                <Stat pb={8}>
+                    <StatLabel>Total Monthly Margin</StatLabel>
+                    <StatNumber>${monthlyMargin}</StatNumber>
+                </Stat>
+            </Flex>
 
             <ComposedChart
                 width={800}
