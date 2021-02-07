@@ -1,7 +1,8 @@
 export const propertyDetails = {
-    name: "Property 1",
-    rent: 1200,
-    dateCreated: "1/1/21",
+    propertyName: "Property 1",
+    rent: 2000,
+    mortgage: 1200,
+    purchaseDate: null,
     expenses: [
         {
             name: "Roof",

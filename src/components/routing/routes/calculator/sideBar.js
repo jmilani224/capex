@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Box, Text } from '@chakra-ui/react'
-import { useMonthlyCAPEX, useAnnualCAPEX } from '../../../../hooks/useTotalCAPEX'
+import { monthlyCAPEX, annualCAPEX } from '../../../../helpers/totalCAPEX'
 
 const SideBar = ({ expensesData, focusedExpense, setFocusedExpense }) => {
     return (
@@ -11,40 +11,25 @@ const SideBar = ({ expensesData, focusedExpense, setFocusedExpense }) => {
         borderColor="gray.100"
         overflow="scroll"
         >
-            {expensesData.map((i, index, arr) => (
+            {expensesData.map(i => (
                 <SideBarItem
                 key={i.name}
                 item={i}
                 setFocusedExpense={setFocusedExpense}
                 focusedExpense={focusedExpense}
-                index={index}
-                arr={arr}
                 />
             ))}
         </Box>
     )
 }
 
-const SideBarItem = ({ item, focusedExpense, setFocusedExpense, index, arr }) => {
-
-    const [arrStatus, setArrStatus] = useState({index: index, arr:arr})
-
-    //const [index, arr] = arrStatus
+const SideBarItem = ({ item, focusedExpense, setFocusedExpense }) => {
 
     return (
         <Box
         py="0.8rem"
         pl="2rem"
         onClick={() => setFocusedExpense(item.name)}
-        //onFocus={() => setFocusedExpense(data.name)}
-        onKeyDown={e => {
-            if (e.key === "ArrowDown") {
-                setFocusedExpense(arrStatus.arr[arrStatus.index + 1]?.name || item.name)
-            }
-            if (e.key === "ArrowUp") {
-                setFocusedExpense(arrStatus.arr[arrStatus.index - 1]?.name || item.name)
-            }
-        }}
         cursor="pointer"
         backgroundColor={focusedExpense === item.name && "gray.100"}
         borderBottom="1px solid"
@@ -59,7 +44,7 @@ const SideBarItem = ({ item, focusedExpense, setFocusedExpense, index, arr }) =>
             fontWeight="400"
             color="gray.600"
             >
-                ${useMonthlyCAPEX(item)} | ${useAnnualCAPEX(item)}
+                ${monthlyCAPEX(item)} | ${annualCAPEX(item)}
             </Text>
         </Box>
     )

@@ -3,8 +3,7 @@ import {
   ChakraProvider,
   theme,
   Spinner,
-  Flex,
-  Box
+  Flex
 } from '@chakra-ui/react';
 import { ColorModeSwitcher } from './ColorModeSwitcher';
 import Header from './components/header/header'

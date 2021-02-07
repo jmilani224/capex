@@ -5,6 +5,8 @@ import {
   } from "react-router-dom";
   import Calculator from './routes/calculator/calculator'
   import PropertyDetails from '../routing/routes/home/propertyDetails'
+  import Projections from '../routing/routes/projections/projections'
+
 
 const RouteSwitch = ({
   fetchedPropertyData,
@@ -16,13 +18,15 @@ const RouteSwitch = ({
         <>
             <Switch>
         <Route path="/projections">
-            <div>Projections</div>
+            <Projections
+            fetchedPropertyData={fetchedPropertyData} // full propertyDetails, no loading state
+            />
         </Route>
 
         <Route path="/calculator">
 
           <Calculator
-          expensesData={fetchedPropertyData.expenses} // expense data array for property only
+          expensesData={fetchedPropertyData.expenses} // expense data array only
           setFetchedPropertyData={setFetchedPropertyData}
           focusedExpense={focusedExpense}
           setFocusedExpense={setFocusedExpense}
@@ -31,7 +35,7 @@ const RouteSwitch = ({
         
         <Route path="/">
             <PropertyDetails
-            fetchedPropertyData={fetchedPropertyData}
+            fetchedPropertyData={fetchedPropertyData} // full propertyDetails, no loading state
             setFetchedPropertyData={setFetchedPropertyData}
             />
         </Route>

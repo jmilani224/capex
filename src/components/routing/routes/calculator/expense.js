@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
     Heading,
     Box,
@@ -12,7 +12,7 @@ import {
 } from '@chakra-ui/react'
 import ReplacementOptionsDrawer from './replacementOptions'
 import { propertyDetails } from '../../../../data'
-import { useMonthlyCAPEX, useAnnualCAPEX } from '../../../../hooks/useTotalCAPEX'
+import { monthlyCAPEX, annualCAPEX } from '../../../../helpers/totalCAPEX'
 import useUpdateExpensesData from '../../../../hooks/useUpdateExpensesData'
 
 const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
@@ -21,7 +21,7 @@ const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
     const [formInputs, setFormInputs] = useState({
         replacementCost: filteredData.replacementCost,
         lifespan: filteredData.lifespan,
-        age: 0,
+        age: filteredData.age,
     })
 
     const handleInputChange = (e, name) => {
@@ -49,6 +49,7 @@ const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
 
     const handleDefault = () => {
         const defaultData = propertyDetails.expenses.filter(i => i.name === filteredData.name)
+        
         setFormInputs({
             replacementCost: defaultData[0]?.replacementCost,
             lifespan: defaultData[0]?.lifespan,
@@ -58,6 +59,7 @@ const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
     
     return (
         <Box
+        key={filteredData.name}
         px={24}
         minW="100%"
         >
@@ -73,7 +75,7 @@ const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
                 w="20rem"
                 mb={8}
                 type="number"
-                value={formInputs.replacementCost}
+                value={filteredData.replacementCost}
                 onChange={e => handleInputChange(e, "replacementCost")}
                 />
 
@@ -89,7 +91,7 @@ const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
                 w="20rem"
                 mb={8}
                 type="number"
-                value={formInputs.lifespan}
+                value={filteredData.lifespan}
                 onChange={e => handleInputChange(e, "lifespan")}
                 />
 
@@ -98,7 +100,7 @@ const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
                 w="20rem"
                 mb={8}
                 type="number"
-                value={formInputs.age}
+                value={filteredData.age}
                 onChange={e => handleInputChange(e, "age")}
                 />
                 
@@ -116,7 +118,7 @@ const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
                 gridColumnEnd="2"
                 >
                     <StatLabel>Monthly CAPEX</StatLabel>
-                    <StatNumber>{useMonthlyCAPEX(filteredData)}</StatNumber>
+                    <StatNumber>{monthlyCAPEX(filteredData)}</StatNumber>
                 </Stat>
 
                 <Stat
@@ -124,7 +126,7 @@ const Expense = ({ expensesData, setFetchedPropertyData, focusedExpense }) => {
                 gridColumnEnd="3"
                 >
                     <StatLabel>Annual CAPEX</StatLabel>
-                    <StatNumber>{useAnnualCAPEX(filteredData)}</StatNumber>
+                    <StatNumber>{annualCAPEX(filteredData)}</StatNumber>
                 </Stat>
 
 
